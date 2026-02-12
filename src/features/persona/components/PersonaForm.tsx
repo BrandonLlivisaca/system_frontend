@@ -6,13 +6,13 @@ import { LoadingSpinner } from '@/shared/components/LoadingSpinner'
 import type { PersonaResponse } from '@/domain/models/persona'
 
 const personaSchema = z.object({
-  razon_social: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  razon_social: z.string().trim().min(3, 'El nombre debe tener al menos 3 caracteres'),
   //apellido: z.string().min(2, 'El apellido debe tener al menos 2 caracteres'),
-  email: z.string().email('Email invalido'),
-  telefono: z.string().min(1, 'El telefono es requerido'),
-  direccion: z.string().min(1, 'La direccion es requerida'),
-  tipo_identificacion: z.string().min(1, 'El tipo de identificacion es requerido'),
-  numero_identificacion: z.string().min(1, 'El numero de identificacion es requerido'),
+  email: z.string().trim().email('Email invalido'),
+  telefono: z.string().trim().min(1).nullable(),
+  direccion: z.string().trim().min(1).nullable(),
+  tipo_identificacion: z.string().trim().min(1, 'El tipo de identificacion es requerido'),
+  numero_identificacion: z.string().trim().min(1, 'El numero de identificacion es requerido'),
 })
 
 type PersonaFormData = z.infer<typeof personaSchema>
@@ -36,7 +36,7 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
           razon_social: persona.razon_social,
           //apellido: persona.apellido,
           email: persona.email,
-          telefono: persona.telefono,
+          telefono: persona.telefono ?? null,
           direccion: persona.direccion,
           tipo_identificacion: persona.tipo_identificacion,
           numero_identificacion: persona.numero_identificacion,
@@ -53,18 +53,17 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
         <FormField label="Nombre" error={errors.razon_social}>
           <input type="text" {...register('razon_social')} className={inputClasses} />
         </FormField>
-        
       </div>
 
       <FormField label="Email" error={errors.email}>
         <input type="email" {...register('email')} className={inputClasses} />
       </FormField>
 
-      <FormField label="Telefono" error={errors.telefono}>
+      <FormField label="Telefono">
         <input type="text" {...register('telefono')} className={inputClasses} />
       </FormField>
 
-      <FormField label="Direccion" error={errors.direccion}>
+      <FormField label="Direccion">
         <input type="text" {...register('direccion')} className={inputClasses} />
       </FormField>
 
@@ -72,10 +71,9 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
         <FormField label="Tipo de identificacion" error={errors.tipo_identificacion}>
           <select {...register('tipo_identificacion')} className={inputClasses}>
             <option value="">Seleccionar...</option>
-            <option value="DNI">DNI</option>
-            <option value="RUC">RUC</option>
-            <option value="CE">CE</option>
-            <option value="PASAPORTE">Pasaporte</option>
+            <option value="ruc">RUC</option>
+            <option value="cedula">CEDULA</option>
+            <option value="pasaporte">PASAPORTE</option>
           </select>
         </FormField>
         <FormField label="Numero de identificacion" error={errors.numero_identificacion}>
