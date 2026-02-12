@@ -1,8 +1,8 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
-import type { PersonaListResponse, PersonaResponse } from '@/domain/models/persona'
+import type { PersonaResponse } from '@/domain/models/persona'
 
 interface PersonaTableProps {
-  personas: PersonaListResponse[]
+  personas: PersonaResponse[]
   onEdit: (persona: PersonaResponse) => void
   onDelete: (persona: PersonaResponse) => void
 }
