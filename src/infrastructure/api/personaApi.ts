@@ -19,7 +19,7 @@ export const personaApi = {
   },
 
   create: async (data: PersonaCreate): Promise<PersonaResponse> => {
-    const response = await axiosClient.post<PersonaResponse>('/persona', data)
+    const response = await axiosClient.post<PersonaResponse>('/persona/create', data)
     return response.data
   },
 

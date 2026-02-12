@@ -26,6 +26,9 @@ export function PersonaTable({ personas, onEdit, onDelete }: PersonaTableProps) 
               Telefono
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+              Direccion
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
               Estado
             </th>
             <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
@@ -47,6 +50,9 @@ export function PersonaTable({ personas, onEdit, onDelete }: PersonaTableProps) 
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
                 {persona.telefono}
+              </td>
+              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
+                {persona.direccion}
               </td>
               <td className="whitespace-nowrap px-6 py-4">
                 <span
