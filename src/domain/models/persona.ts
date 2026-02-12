@@ -1,34 +1,44 @@
 export interface PersonaResponse {
   id: number
-  nombre: string
-  apellido: string
+  razon_social: string
+  nombre_comercial: string
   email: string
   telefono: string
   direccion: string
-  tipo_documento: string
-  numero_documento: string
+  tipo_identificacion: string
+  numero_identificacion: string
+  limite_credito: number
+  dias_credito: number
   is_active: boolean
   created_at: string
   updated_at: string
 }
 
 export interface PersonaCreate {
-  nombre: string
-  apellido: string
+  razon_social: string
+  //apellido: string
   email: string
   telefono: string
   direccion: string
-  tipo_documento: string
-  numero_documento: string
+  tipo_identificacion: string
+  numero_identificacion: string
 }
 
 export interface PersonaUpdate {
-  nombre?: string
-  apellido?: string
+  razon_social?: string
+  //apellido?: string
   email?: string
   telefono?: string
   direccion?: string
-  tipo_documento?: string
-  numero_documento?: string
+  tipo_identificacion?: string
+  numero_identificacion?: string
   is_active?: boolean
+}
+
+
+export interface PersonaListResponse {
+  personas:  PersonaResponse[],
+  total: number,
+  page: number,
+  per_page: number,
 }

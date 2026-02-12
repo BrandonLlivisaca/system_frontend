@@ -1,12 +1,15 @@
 import axiosClient from './axiosClient'
-import type { PersonaResponse, PersonaCreate, PersonaUpdate } from '@/domain/models/persona'
-import type { PaginationParams } from '@/domain/models/pagination'
+import type { PersonaResponse, PersonaCreate, PersonaUpdate, PersonaListResponse } from '@/domain/models/persona'
+
 
 export const personaApi = {
-  list: async (params: PaginationParams & { search?: string }): Promise<PersonaResponse[]> => {
-    const response = await axiosClient.get<PersonaResponse[]>('/persona', {
-      params: { skip: params.skip, limit: params.limit, search: params.search },
-    })
+  getAll: async (page = 1, perPage = 10): Promise<PersonaListResponse> => {
+    const skip = (page - 1) * perPage
+
+    const response = await axiosClient.get<PersonaListResponse>(
+      `/persona?skip=${skip}&limit=${perPage}`
+    )
+
     return response.data
   },
 
