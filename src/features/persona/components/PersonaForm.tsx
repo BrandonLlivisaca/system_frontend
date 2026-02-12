@@ -6,13 +6,13 @@ import { LoadingSpinner } from '@/shared/components/LoadingSpinner'
 import type { PersonaResponse } from '@/domain/models/persona'
 
 const personaSchema = z.object({
-  nombre: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
-  apellido: z.string().min(2, 'El apellido debe tener al menos 2 caracteres'),
+  razon_social: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  //apellido: z.string().min(2, 'El apellido debe tener al menos 2 caracteres'),
   email: z.string().email('Email invalido'),
   telefono: z.string().min(1, 'El telefono es requerido'),
   direccion: z.string().min(1, 'La direccion es requerida'),
-  tipo_documento: z.string().min(1, 'El tipo de documento es requerido'),
-  numero_documento: z.string().min(1, 'El numero de documento es requerido'),
+  tipo_identificacion: z.string().min(1, 'El tipo de identificacion es requerido'),
+  numero_identificacion: z.string().min(1, 'El numero de identificacion es requerido'),
 })
 
 type PersonaFormData = z.infer<typeof personaSchema>
@@ -33,13 +33,13 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
     resolver: zodResolver(personaSchema),
     defaultValues: persona
       ? {
-          nombre: persona.nombre,
-          apellido: persona.apellido,
+          razon_social: persona.razon_social,
+          //apellido: persona.apellido,
           email: persona.email,
           telefono: persona.telefono,
           direccion: persona.direccion,
-          tipo_documento: persona.tipo_documento,
-          numero_documento: persona.numero_documento,
+          tipo_identificacion: persona.tipo_identificacion,
+          numero_identificacion: persona.numero_identificacion,
         }
       : {},
   })
@@ -50,12 +50,10 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
-        <FormField label="Nombre" error={errors.nombre}>
-          <input type="text" {...register('nombre')} className={inputClasses} />
+        <FormField label="Nombre" error={errors.razon_social}>
+          <input type="text" {...register('razon_social')} className={inputClasses} />
         </FormField>
-        <FormField label="Apellido" error={errors.apellido}>
-          <input type="text" {...register('apellido')} className={inputClasses} />
-        </FormField>
+        
       </div>
 
       <FormField label="Email" error={errors.email}>
@@ -71,8 +69,8 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
       </FormField>
 
       <div className="grid grid-cols-2 gap-4">
-        <FormField label="Tipo de documento" error={errors.tipo_documento}>
-          <select {...register('tipo_documento')} className={inputClasses}>
+        <FormField label="Tipo de identificacion" error={errors.tipo_identificacion}>
+          <select {...register('tipo_identificacion')} className={inputClasses}>
             <option value="">Seleccionar...</option>
             <option value="DNI">DNI</option>
             <option value="RUC">RUC</option>
@@ -80,8 +78,8 @@ export function PersonaForm({ persona, onSubmit, onCancel, isLoading }: PersonaF
             <option value="PASAPORTE">Pasaporte</option>
           </select>
         </FormField>
-        <FormField label="Numero de documento" error={errors.numero_documento}>
-          <input type="text" {...register('numero_documento')} className={inputClasses} />
+        <FormField label="Numero de identificacion" error={errors.numero_identificacion}>
+          <input type="text" {...register('numero_identificacion')} className={inputClasses} />
         </FormField>
       </div>
 

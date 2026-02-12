@@ -3,12 +3,12 @@ import { personaApi } from '@/infrastructure/api/personaApi'
 import type { PersonaCreate, PersonaUpdate } from '@/domain/models/persona'
 import toast from 'react-hot-toast'
 
-export function usePersona(skip: number, limit: number, search?: string) {
+export function usePersona(page: number, limit: number, search?: string) {
   const queryClient = useQueryClient()
 
   const listQuery = useQuery({
-    queryKey: ['persona', skip, limit, search],
-    queryFn: () => personaApi.list({ skip, limit, search }),
+    queryKey: ['persona', page, limit, search],
+    queryFn: () => personaApi.getAll(page, limit),
   })
 
   const createMutation = useMutation({
@@ -38,8 +38,13 @@ export function usePersona(skip: number, limit: number, search?: string) {
     onError: () => toast.error('Error al eliminar persona'),
   })
 
+  const data = listQuery.data
+
   return {
-    personas: listQuery.data ?? [],
+    personas: data?.personas ?? [],
+    total: data?.total ?? 0,
+    page: data?.page ?? 1,
+    perPage: data?.per_page ?? limit,
     isLoading: listQuery.isLoading,
     error: listQuery.error,
     createPersona: createMutation.mutate,

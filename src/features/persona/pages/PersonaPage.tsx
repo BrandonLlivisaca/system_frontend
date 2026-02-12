@@ -12,12 +12,13 @@ import { usePagination } from '@/shared/hooks/usePagination'
 import type { PersonaResponse, PersonaCreate, PersonaUpdate } from '@/domain/models/persona'
 
 export function PersonaPage() {
-  const { currentPage, skip, limit, pageSize, goToPage, reset } = usePagination()
+  const { currentPage, pageSize, goToPage, reset } = usePagination()
   const [search, setSearch] = useState('')
   const [searchInput, setSearchInput] = useState('')
 
   const {
     personas,
+    total,
     isLoading,
     error,
     createPersona,
@@ -26,7 +27,7 @@ export function PersonaPage() {
     isCreating,
     isUpdating,
     isDeleting,
-  } = usePersona(skip, limit, search || undefined)
+  } = usePersona(currentPage, pageSize, search || undefined)
 
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingPersona, setEditingPersona] = useState<PersonaResponse | undefined>()
@@ -69,7 +70,7 @@ export function PersonaPage() {
     }
   }
 
-  const totalPages = Math.max(1, Math.ceil(personas.length < pageSize ? currentPage : currentPage + 1))
+  const totalPages = Math.max(1, Math.ceil(total / pageSize))
 
   return (
     <div>
@@ -129,7 +130,7 @@ export function PersonaPage() {
         onClose={() => setDeletingPersona(undefined)}
         onConfirm={handleDelete}
         title="Eliminar Persona"
-        message={`Estas seguro que deseas eliminar a ${deletingPersona?.nombre} ${deletingPersona?.apellido}? Esta accion no se puede deshacer.`}
+        message={`Estas seguro que deseas eliminar a ${deletingPersona?.razon_social}? Esta accion no se puede deshacer.`}
         isLoading={isDeleting}
       />
     </div>

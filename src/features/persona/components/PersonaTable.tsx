@@ -37,10 +37,10 @@ export function PersonaTable({ personas, onEdit, onDelete }: PersonaTableProps) 
           {personas.map((persona) => (
             <tr key={persona.id} className="hover:bg-gray-50">
               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
-                {persona.nombre} {persona.apellido}
+                {persona.razon_social}
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
-                {persona.tipo_documento}: {persona.numero_documento}
+                {persona.tipo_identificacion}: {persona.numero_identificacion}
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-600">
                 {persona.email}
